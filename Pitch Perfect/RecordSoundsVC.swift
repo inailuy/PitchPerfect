@@ -19,11 +19,7 @@ class RecordSoundsVC: UIViewController {
     @IBOutlet weak var recordingLabel: UILabel!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var resumeButton: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -50,11 +46,7 @@ class RecordSoundsVC: UIViewController {
     
     @IBAction func pausedButtonPressed(sender: UIButton) {
         sender.selected = !sender.selected
-        if sender.selected {
-            AudioManager.sharedInstance.audioRecorder.pause()
-        }else{
-            AudioManager.sharedInstance.audioRecorder.record()
-        }
+        AudioManager.sharedInstance.pauseRecording(sender.selected)
     }
     
     @IBAction func stopButtonPressed(sender: UIButton) {

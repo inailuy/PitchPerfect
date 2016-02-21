@@ -9,13 +9,6 @@
 import Foundation
 import AVFoundation
 
-let fastTag = 100
-let slowTag = 101
-let chipmunkTag = 102
-let darthvaderTag = 103
-let reverbTag = 104
-let echoTag = 105
-
 class AudioManager : NSObject, AVAudioRecorderDelegate{
     // Singleton Instance
     static let sharedInstance = AudioManager()
@@ -27,11 +20,18 @@ class AudioManager : NSObject, AVAudioRecorderDelegate{
         AVLinearPCMBitDepthKey:16,
         AVEncoderAudioQualityKey:AVAudioQuality.Max.rawValue
     ]
+    let fastTag = 100
+    let slowTag = 101
+    let chipmunkTag = 102
+    let darthvaderTag = 103
+    let reverbTag = 104
+    let echoTag = 105
     var audioRecorder : AVAudioRecorder!
     var audioEngine : AVAudioEngine!
     var audioPlayer : AVAudioPlayer!
     var filePathUrl : NSURL!
     var audioPlayerNode : AVAudioPlayerNode!
+    
     // Easy accessor to audio file
     func directoryURL() -> NSURL? {
         let fileManager = NSFileManager.defaultManager()
@@ -49,6 +49,14 @@ class AudioManager : NSObject, AVAudioRecorderDelegate{
             audioRecorder?.prepareToRecord()
         }
         audioRecorder?.record()
+    }
+    
+    func pauseRecording(withBool:Bool){
+        if withBool {
+                audioRecorder.pause()
+        }else{
+                startRecording()
+        }
     }
     
     func stopRecording(){
@@ -69,17 +77,17 @@ class AudioManager : NSObject, AVAudioRecorderDelegate{
         // Filter each mode
         switch withTag {
         case chipmunkTag :
-            self.highPitchMode()
+            highPitchMode()
         case fastTag :
-            self.fastMode()
+            fastMode()
         case slowTag :
-            self.slowMode()
+            slowMode()
         case darthvaderTag :
-            self.lowPitchMode()
+            lowPitchMode()
         case reverbTag :
-            self.reverbMode()
+            reverbMode()
         case echoTag :
-            self.echoMode()
+            echoMode()
         default :
             break
         }
@@ -87,6 +95,12 @@ class AudioManager : NSObject, AVAudioRecorderDelegate{
         try! audioEngine.start()
         audioPlayerNode.play()
     }
+    
+    func stopPlayingRecording(){
+        AudioManager.sharedInstance.audioPlayer.stop()
+        AudioManager.sharedInstance.audioEngine.stop()
+    }
+    
     //MARK: AVAudioRecorderDelegate
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if(flag) {
