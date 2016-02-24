@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class PlaySoundsVC: UIViewController, AVAudioPlayerDelegate {
+class PlaySoundsVC: UIViewController {
 
     @IBAction func stopButtonPressed(sender: UIButton) {
         AudioManager.sharedInstance.stopPlayingRecording()

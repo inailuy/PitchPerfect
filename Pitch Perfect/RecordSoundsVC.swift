@@ -29,10 +29,6 @@ class RecordSoundsVC: UIViewController {
         stopButton.enabled = true
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     @IBAction func microphoneButtonPressed(sender: UIButton) {
         if AVAudioSession.sharedInstance().inputAvailable {
             AudioManager.sharedInstance.startRecording()

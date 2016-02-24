@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 class AudioManager : NSObject, AVAudioRecorderDelegate{
-    // Singleton Instance
+    //MARK: Vars
     static let sharedInstance = AudioManager()
     let recordSettings :[String : AnyObject] = [
         AVFormatIDKey:Int(kAudioFormatAppleIMA4),
@@ -32,22 +32,18 @@ class AudioManager : NSObject, AVAudioRecorderDelegate{
     var filePathUrl : NSURL!
     var audioPlayerNode : AVAudioPlayerNode!
     
-    // Easy accessor to audio file
-    func directoryURL() -> NSURL? {
+    override init() {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         let documentDirectory = urls[0] as NSURL
-        let writePath = documentDirectory.URLByAppendingPathComponent("audio.caf")
-
-        return writePath
+        filePathUrl = documentDirectory.URLByAppendingPathComponent("audio.caf")
+        
+        try! audioRecorder = AVAudioRecorder(URL: filePathUrl!, settings: recordSettings)
     }
-    
+    //MARK: Recording Related
     func startRecording(){
-        if audioRecorder == nil {
-            try! audioRecorder = AVAudioRecorder(URL: directoryURL()!, settings: recordSettings)
-            audioRecorder?.delegate = self
-            audioRecorder?.prepareToRecord()
-        }
+        audioRecorder?.delegate = self
+        audioRecorder?.prepareToRecord()
         audioRecorder?.record()
     }
     
