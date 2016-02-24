@@ -101,8 +101,6 @@ class AudioManager : NSObject, AVAudioRecorderDelegate{
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if(flag) {
             filePathUrl = recorder.url
-        }else{
-            //Recording was not successful
         }
     }
     //MARK: Sound Motifications Actions
