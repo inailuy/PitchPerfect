@@ -5,4 +5,4 @@ An iPhone app that will allow users to record their voice and will then modulate
 * AVFoundation’s AVAudioEngine class 
 
 
-<img src="http://i.imgur.com/qXkcb7T.jpg" width="263" height="500"> <img src="http://i.imgur.com/1FjVhJ7.jpg" width="263" height="500">
+<img src="http://i.imgur.com/qXkcb7T.jpg" width="526" height="1000"> <img src="http://i.imgur.com/1FjVhJ7.jpg" width="526" height="1000">
